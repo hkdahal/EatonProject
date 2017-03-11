@@ -1,16 +1,41 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse, HttpResponseRedirect
+
+from .forms import ArtistForm
+
+from .search_api import SearchAPI
+
+import json
 
 
 def index(request):
-    return render(request, 'MainApp/index.html', {})
+    return render(request, 'MainApp/base.html', {})
 
 
 def artist_input(request):
     if request.method == "POST":
         # do stuff
-        pass
+        form = ArtistForm(request.POST)
+        if form.is_valid():
+            api = SearchAPI()
+            result = api.search_term(form.cleaned_data['name'])
+            return HttpResponse(json.dumps(result),
+                                content_type="application/json")
     else:
-        pass
+        # form = ArtistForm()
+        api = SearchAPI()
+        result = api.search_term('jack johnson')
+        return HttpResponse(json.dumps(result),
+                            content_type="application/json")
+    return render(request, 'MainApp/index.html', {'form': form})
+
+
+"""
+Provide following info:
+Artist Name, Track Name, Release Date, Collection Name, Collection Price,
+Track Price, Track Number, Track Count,
+Image (bonus points),
+Kind and Primary Genre Name.
+"""
 
 
 def file_read(file_name):
