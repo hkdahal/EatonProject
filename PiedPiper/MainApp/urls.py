@@ -2,7 +2,6 @@ from django.conf.urls import url
 import MainApp.views as v
 
 urlpatterns = [
-    url(r'^artist', v.artist_input),
-    url(r'^', v.index),
-
+    url(r'^artist/(?P<name>[a-zA-Z\s]+)', v.get_data),
+    url(r'^$', v.index),
 ]

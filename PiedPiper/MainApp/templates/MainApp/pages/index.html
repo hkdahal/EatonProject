@@ -1,0 +1,63 @@
+{% extends 'MainApp/base.html' %}
+{% block content %}
+<br>
+<br>
+<table id="datatable" class="display" width="100%" cellspacing="0">
+    <thead></thead>
+    <tbody></tbody>
+    <tfoot></tfoot>
+</table>
+{% endblock %}
+
+{% block script %}
+    <script>
+$(document).ready(function () {
+
+  var url = '/artist';
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        success: function(jsonData) {
+            $('#datatable').dataTable({
+                data: jsonData,
+                columns: [
+                    { title: 'Artist Name', data: 'artistName', defaultContent: 'Null'},
+                    { title: 'Track Name', data: 'trackName', defaultContent: 'Null'},
+                    { title: 'Release Date', data: 'releaseDate', defaultContent: 'Null'},
+{#                    { title: 'Collection Name', data: 'collectionName', defaultContent: 'Null'},#}
+{#                    { title: 'Collection Price', data: 'collectionPrice', defaultContent: 'Null'},#}
+{#                    { title: 'Track Price', data: 'trackPrice', defaultContent: 'Null'},#}
+{#                    { title: 'Track Number', data: 'trackNumber', defaultContent: 'Null'},#}
+{#                    { title: 'Track Count', data: 'trackCount', defaultContent: 'Null'},#}
+{#                    { title: 'Kind', data: 'kind', defaultContent: 'Null'},#}
+{#                    { title: 'Primary Genre Name', data: 'primaryGenreName', defaultContent: 'Null'},#}
+{#                    { title: 'Image?', data: 'previewUrl', defaultContent: 'Null'}#}
+                ]
+            });
+        }
+    });
+
+    $('#datatable').on('mouseover', 'tbody tr', function() {
+        $(this).css({
+           'cursor': 'pointer',
+            'color': 'blue'
+        });
+    })
+
+    $('#datatable').on('mouseout', 'tbody tr', function() {
+        $(this).css({
+            'cursor': 'default',
+            'color': 'inherit'
+        });
+    })
+
+    $('#datatable').on( 'click', 'tbody tr', function() {
+        var url = window.location.href;
+        url += '/' + $(this).children(':first').text();
+        window.location.assign(url);
+    });
+
+
+});
+    </script>
+{% endblock %}

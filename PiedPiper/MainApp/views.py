@@ -8,34 +8,25 @@ import json
 
 
 def index(request):
-    return render(request, 'MainApp/pages/cool.html', {})
-
-
-def artist_input(request):
     if request.method == "POST":
-        # do stuff
         form = ArtistForm(request.POST)
         if form.is_valid():
-            api = SearchAPI()
-            result = api.search_term(form.cleaned_data['name'])
-            return HttpResponse(json.dumps(result),
-                                content_type="application/json")
+            return render(request, 'MainApp/pages/index.html',
+                          {'form': form,
+                           'url': '/artist/'+form.cleaned_data['name']
+                           }
+                          )
     else:
-        # form = ArtistForm()
-        api = SearchAPI()
-        result = api.search_term('jack johnson')
-        return HttpResponse(json.dumps(result),
-                            content_type="application/json")
-    return render(request, 'MainApp/index.html', {'form': form})
+        form = ArtistForm()
+
+    return render(request, 'MainApp/pages/index.html', {'form': form})
 
 
-"""
-Provide following info:
-Artist Name, Track Name, Release Date, Collection Name, Collection Price,
-Track Price, Track Number, Track Count,
-Image (bonus points),
-Kind and Primary Genre Name.
-"""
+def get_data(request, name):
+    print(name)
+    api = SearchAPI()
+    result = api.search_term(name)
+    return HttpResponse(json.dumps(result), content_type="application/json")
 
 
 def file_read(file_name):
