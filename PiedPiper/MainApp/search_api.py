@@ -13,4 +13,5 @@ class SearchAPI:
     def call_api(self, url):
         the_url = self.api_url + url
         response = requests.get(the_url)
-        return response.json()
+        data = response.json()['results']
+        return data
