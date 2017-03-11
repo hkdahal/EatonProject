@@ -1,0 +1,26 @@
+{% load staticfiles %}
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description"
+      content="Helping couples un-break up knowing their financial status.">
+<meta name="author" content="Hari Dahal">
+<link rel="icon"
+      href="https://cdn1.iconfinder.com/data/icons/money-finance-set-3/512/4-512.png">
+
+<title>
+    {% block page_title %}
+        {{ page_title }}
+    {% endblock %}
+    | Pied Piper
+</title>
+
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet"
+      href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+<!-- Custom styles for this template -->
+<link href="{% static 'css/dashboard.css' %} " rel="stylesheet">

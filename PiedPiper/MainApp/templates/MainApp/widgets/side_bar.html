@@ -1,0 +1,16 @@
+<div class="col-sm-3 col-md-2 sidebar">
+
+    <ul class="nav nav-sidebar">
+        <li {% if current == 'Homepage' %} class="active" {% endif %}><a href="/">Homepage<span
+                class="sr-only">(current)</span></a></li>
+
+        <li {% if current == 'RequestArtist' %} class="active" {% endif %}><a href="/artist">Request Artist</a></li>
+        <li {% if current == 'Artists' %} class="active" {% endif %}><a href="/artist">Artists</a></li>
+        <li {% if current == 'UsageGuide' %} class="active" {% endif %}><a href="/usage-guide">Usage Guide</a></li>
+    </ul>
+
+    <ul class="nav nav-sidebar">
+        <li {% if current == 'LoadFile' %} class="active" {% endif %}><a href="/load-file">Load File</a></li>
+    </ul>
+
+</div>
