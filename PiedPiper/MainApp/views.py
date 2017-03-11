@@ -8,7 +8,7 @@ import json
 
 
 def index(request):
-    return render(request, 'MainApp/base.html', {})
+    return render(request, 'MainApp/pages/cool.html', {})
 
 
 def artist_input(request):
