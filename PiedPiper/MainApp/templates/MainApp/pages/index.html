@@ -1,6 +1,13 @@
 {% extends 'MainApp/base.html' %}
+
 {% block content %}
-<br>
+    <form action="/" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Search"/>
+    </form>
+
+    <br>
 <br>
 <table id="datatable" class="display" width="100%" cellspacing="0">
     <thead></thead>
@@ -13,7 +20,7 @@
     <script>
 $(document).ready(function () {
 
-  var url = '/artist';
+  var url = '{{ url }}';
     $.ajax({
         url: url,
         dataType: 'json',
@@ -24,14 +31,6 @@ $(document).ready(function () {
                     { title: 'Artist Name', data: 'artistName', defaultContent: 'Null'},
                     { title: 'Track Name', data: 'trackName', defaultContent: 'Null'},
                     { title: 'Release Date', data: 'releaseDate', defaultContent: 'Null'},
-{#                    { title: 'Collection Name', data: 'collectionName', defaultContent: 'Null'},#}
-{#                    { title: 'Collection Price', data: 'collectionPrice', defaultContent: 'Null'},#}
-{#                    { title: 'Track Price', data: 'trackPrice', defaultContent: 'Null'},#}
-{#                    { title: 'Track Number', data: 'trackNumber', defaultContent: 'Null'},#}
-{#                    { title: 'Track Count', data: 'trackCount', defaultContent: 'Null'},#}
-{#                    { title: 'Kind', data: 'kind', defaultContent: 'Null'},#}
-{#                    { title: 'Primary Genre Name', data: 'primaryGenreName', defaultContent: 'Null'},#}
-{#                    { title: 'Image?', data: 'previewUrl', defaultContent: 'Null'}#}
                 ]
             });
         }
