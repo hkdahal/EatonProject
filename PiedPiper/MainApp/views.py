@@ -23,10 +23,13 @@ def index(request):
 
 
 def get_data(request, name):
-    print(name)
-    api = SearchAPI()
-    result = api.search_term(name)
+    result = SearchAPI().search_artist(name)
     return HttpResponse(json.dumps(result), content_type="application/json")
+
+
+def details(request, id):
+    data = SearchAPI().lookup_id(id)[0]
+    return render(request, 'MainApp/pages/details.html', {'data': data})
 
 
 def file_read(file_name):
@@ -39,18 +42,6 @@ def save_file(data):
     # process the data
     # write the data in the file
     # save the file
-    pass
-
-
-def instantiate_apple_api():
-    # instantiate the API object
-    pass
-
-
-def connect_url_call_api(API, artist):
-    # concatenate API url and artist
-    # get the result
-    # call to process the result
     pass
 
 

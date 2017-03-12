@@ -1,0 +1,21 @@
+{% extends 'MainApp/base.html' %}
+
+{% block content %}
+
+    <h1>{{ data.trackName }}</h1>
+    <h3>By {{ data.artistName }}</h3>
+
+    <ul>
+        <li>Collection Name: {{ data.collectionName }}</li>
+        <li>Collection Price: ${{ data.collectionPrice }}</li>
+        <li>Track Price: ${{ data.trackPrice }}</li>
+        <li>Track Number: {{ data.trackNumber }}</li>
+        <li>Track Count: {{ data.trackCount }}</li>
+        <li>Kind: {{ data.kind }}</li>
+        <li>Primary Genre Name: {{ data.primaryGenreName }}</li>
+        <li><img src="{{ data.artworkUrl100 }}" height="180" width="180"></li>
+
+    </ul>
+
+
+{% endblock content %}
