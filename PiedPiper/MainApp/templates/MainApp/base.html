@@ -8,7 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet"
-      href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+          href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
     <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 
 </head>
@@ -18,21 +18,17 @@
 {% include 'MainApp/widgets/nav_bar.html' %}
 {% include 'MainApp/widgets/side_bar.html' %}
 
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    {% block change_user %}
-    {% endblock %}
-</div>
-
 {% block body %}
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                {% block content %}
-                {% endblock content %}
-            </div>
+            {% block content %}
+            {% endblock content %}
+            {% block image_block %}
+            {% endblock %}
         </div>
     </div>
 {% endblock %}
+
 
 
 {% block script %}
