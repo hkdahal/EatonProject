@@ -1,63 +1,88 @@
 {% extends 'MainApp/base.html' %}
 
 {% block content %}
-    <form action="/" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Search"/>
-    </form>
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <form action="/" method="post" class="form-inline">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Search" class="btn btn-primary"/>
+        </form>
 
-    <br>
-<br>
-<table id="datatable" class="display" width="100%" cellspacing="0">
-    <thead></thead>
-    <tbody></tbody>
-    <tfoot></tfoot>
-</table>
+        {% if url %}
+            <br>
+            <br>
+
+            <table id="datatable" class="display" width="100%" cellspacing="0">
+                <thead></thead>
+                <tbody></tbody>
+                <tfoot></tfoot>
+            </table>
+        {% endif %}
+    </div>
 {% endblock %}
 
-{% block script %}
-    <script>
-$(document).ready(function () {
 
-  var url = '{{ url }}';
-    $.ajax({
-        url: url,
-        dataType: 'json',
-        success: function(jsonData) {
-            $('#datatable').dataTable({
-                data: jsonData,
-                columns: [
-                    { title: 'Track ID', data: 'trackId', defaultContent: 'Null'},
-                    { title: 'Artist Name', data: 'artistName', defaultContent: 'Null'},
-                    { title: 'Track Name', data: 'trackName', defaultContent: 'Null'},
-                    { title: 'Release Date', data: 'releaseDate', defaultContent: 'Null'}
-                ]
+{% if url %}
+    {% block script %}
+        <script>
+            $(document).ready(function () {
+
+                var url = '{{ url }}';
+                $.ajax({
+                    url: url,
+                    dataType: 'json',
+                    success: function (jsonData) {
+                        $('#datatable').dataTable({
+                            data: jsonData,
+                            columns: [
+                                {
+                                    title: 'Track ID',
+                                    data: 'trackId',
+                                    defaultContent: 'Null'
+                                },
+                                {
+                                    title: 'Artist Name',
+                                    data: 'artistName',
+                                    defaultContent: 'Null'
+                                },
+                                {
+                                    title: 'Track Name',
+                                    data: 'trackName',
+                                    defaultContent: 'Null'
+                                },
+                                {
+                                    title: 'Release Date',
+                                    data: 'releaseDate',
+                                    defaultContent: 'Null'
+                                }
+                            ]
+                        });
+                    }
+                });
+
+                $('#datatable').on('mouseover', 'tbody tr', function () {
+                    $(this).css({
+                        'cursor': 'pointer',
+                        'color': 'blue'
+                    });
+                })
+
+                $('#datatable').on('mouseout', 'tbody tr', function () {
+                    $(this).css({
+                        'cursor': 'default',
+                        'color': 'inherit'
+                    });
+                })
+
+                $('#datatable').on('click', 'tbody tr', function () {
+                    var url = window.location.href;
+                    url += 'details/' + $(this).children(':first').text();
+                    window.location.assign(url);
+                });
+
+
             });
-        }
-    });
+        </script>
+    {% endblock %}
 
-    $('#datatable').on('mouseover', 'tbody tr', function() {
-        $(this).css({
-           'cursor': 'pointer',
-            'color': 'blue'
-        });
-    })
-
-    $('#datatable').on('mouseout', 'tbody tr', function() {
-        $(this).css({
-            'cursor': 'default',
-            'color': 'inherit'
-        });
-    })
-
-    $('#datatable').on( 'click', 'tbody tr', function() {
-        var url = window.location.href;
-        url += 'details/' + $(this).children(':first').text();
-        window.location.assign(url);
-    });
-
-
-});
-    </script>
-{% endblock %}
+{% endif %}
