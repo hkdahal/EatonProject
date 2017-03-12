@@ -32,6 +32,10 @@ def details(request, id):
     return render(request, 'MainApp/pages/details.html', {'data': data})
 
 
+def save_data(request, term):
+    return HttpResponse('saved ' + term + ' file.')
+
+
 def file_read(file_name):
     # process the file
     #
