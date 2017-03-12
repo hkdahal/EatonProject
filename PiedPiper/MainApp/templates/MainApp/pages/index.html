@@ -28,9 +28,10 @@ $(document).ready(function () {
             $('#datatable').dataTable({
                 data: jsonData,
                 columns: [
+                    { title: 'Track ID', data: 'trackId', defaultContent: 'Null'},
                     { title: 'Artist Name', data: 'artistName', defaultContent: 'Null'},
                     { title: 'Track Name', data: 'trackName', defaultContent: 'Null'},
-                    { title: 'Release Date', data: 'releaseDate', defaultContent: 'Null'},
+                    { title: 'Release Date', data: 'releaseDate', defaultContent: 'Null'}
                 ]
             });
         }
@@ -52,7 +53,7 @@ $(document).ready(function () {
 
     $('#datatable').on( 'click', 'tbody tr', function() {
         var url = window.location.href;
-        url += '/' + $(this).children(':first').text();
+        url += 'details/' + $(this).children(':first').text();
         window.location.assign(url);
     });
 
