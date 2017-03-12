@@ -15,20 +15,26 @@
             <li>Primary Genre Name: {{ data.primaryGenreName }}</li>
         </ul>
     </div>
-
-
-
 {% endblock content %}
 
 {% block image_block %}
     <div class="col col-md-4 main">
 
-    <img src="{{ data.artworkUrl100 }}" height="200" width="200"
-         class="rounded float-right">
+        <img src="{{ data.artworkUrl100 }}" height="200" width="200"
+             class="rounded float-right">
+        <br>
+        <br>
+        <i>Preview: </i><br>
+        <audio controls preload="none" style="width: 300px;">
+            <source src="{{ data.previewUrl }}" type="audio/mp4"/>
+            <p>Your browser does not support HTML5 audio.</p>
+        </audio>
+    </div>
+{% endblock %}
 
-    <audio controls preload="none">
-        <source src="{{ data.previewUrl }}" type="audio/mp4"/>
-        <p>Your browser does not support HTML5 audio.</p>
-    </audio>
+
+{% block additional_content %}
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h3> In this collection: </h3>
     </div>
 {% endblock %}
