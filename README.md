@@ -1,6 +1,9 @@
 # EatonProject
 Interview Project Given by Eaton.
 
+Click here to read instructions on how-to run this project:
+[HOW-TO.md](PiedPiper/HOW-TO.md)
+
 **EXPECTED SUBMISSION TIME:**
 Tuesday 03/14. 6:00 AM EST
  
