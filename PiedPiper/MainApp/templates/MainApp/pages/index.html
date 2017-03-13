@@ -14,13 +14,13 @@
 
 
         <div id="savedArtistsDetails">
-        {% if saved_artists %}
-            <br>Saved artists:
-            {% for artist in saved_artists %}
-                <code><a href="/show/{{ artist }}">{{ artist }}</a></code>
+            {% if saved_artists %}
+                <br>Saved artists:
+                {% for artist in saved_artists %}
+                    <code><a href="/show/{{ artist }}">{{ artist }}</a></code>
 
-            {% endfor %}
-        {% endif %}
+                {% endfor %}
+            {% endif %}
         </div>
 
         {% if url %}
@@ -40,6 +40,9 @@
             {% if term %}
                 {% include 'MainApp/pages/save_modal.html' %}
             {% endif %}
+            <a class="btn btn-warning btn-md" id="downloadBtn" style='display:none' href="{{ url }}" download>
+                Download Result
+            </a>
         {% endif %}
     </div>
 {% endblock %}
