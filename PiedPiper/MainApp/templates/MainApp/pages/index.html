@@ -9,6 +9,17 @@
             <input type="submit" value="Search" class="btn btn-primary"/>
         </form>
 
+
+        <div id="savedArtistsDetails">
+        {% if saved_artists %}
+            <br>Saved artists:
+            {% for artist in saved_artists %}
+                <code>{{ artist }}</code>
+
+            {% endfor %}
+        {% endif %}
+        </div>
+
         {% if url %}
             <br>
             <br>
@@ -95,25 +106,29 @@
 
             });
 
-            $('#yesButton').click(function (e) {
-                e.preventDefault(); // prevent form from reloading page
 
-                $.ajax({
-                    'url': '/save/{{ term }}',
-                    'type': 'GET',
-                    beforeSend: function () {
-                        $('.theContent').hide();
-                        $('.uploadingMessage').show();
-                    },
-                    error: function () {
-                        alert('Error');
-                    },
-                    'success': function (data) {
-                        $('.uploadingMessage').hide();
-                        $('.savedMessage').show();
-                    }
+            {% if term %}
+                $('#yesButton').click(function (e) {
+                    e.preventDefault(); // prevent form from reloading page
+
+                    $.ajax({
+                        'url': '/save/{{ term }}',
+                        'type': 'GET',
+                        beforeSend: function () {
+                            $('.theContent').hide();
+                            $('.uploadingMessage').show();
+                        },
+                        error: function () {
+                            alert('Error');
+                        },
+                        'success': function (data) {
+                            $('.uploadingMessage').hide();
+                            $('.savedMessage').show();
+                            $('#savedArtistsDetails').append('<code> {{ term }} </code>')
+                        }
+                    });
                 });
-            });
+            {% endif %}
         </script>
     {% endblock %}
 
