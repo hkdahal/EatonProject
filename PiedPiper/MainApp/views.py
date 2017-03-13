@@ -11,9 +11,11 @@ def index(request):
     if request.method == "POST":
         form = ArtistForm(request.POST)
         if form.is_valid():
+            term = form.cleaned_data['name']
             return render(request, 'MainApp/pages/index.html',
                           {'form': form,
-                           'url': '/artist/'+form.cleaned_data['name']
+                           'url': '/artist/'+term,
+                           'term': term
                            }
                           )
     else:
@@ -33,6 +35,12 @@ def details(request, id):
 
 
 def save_data(request, term):
+    data = SearchAPI().search_artist(term)
+
+    # Writing JSON data
+    with open('MainApp/saved-data/'+term+'.json', 'w') as f:
+        json.dump(data, f)
+
     return HttpResponse('saved ' + term + ' file.')
 
 
