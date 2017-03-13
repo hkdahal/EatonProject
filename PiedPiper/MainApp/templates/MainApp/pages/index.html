@@ -12,6 +12,11 @@
             <br>
             <br>
 
+            <div id='loadingMessage' style='display:none'>
+                <img src='https://d368g9lw5ileu7.cloudfront.net/img/rsuWaitingLarge.bwo7Y7.gif'/><br>
+                <img src='https://4.bp.blogspot.com/-m-M0doCYTeE/V_CgCGtKXII/AAAAAAAACCY/phrSWiKZ7VIQRNB-_uqRq2pCfkA4FGC7QCLcB/s640/progressbar2.gif'/>
+            </div>
+
             <table id="datatable" class="display" width="100%" cellspacing="0">
                 <thead></thead>
                 <tbody></tbody>
@@ -30,6 +35,7 @@
             $(document).ready(function () {
 
                 var url = '{{ url }}';
+                $('#loadingMessage').show();
                 $.ajax({
                     url: url,
                     dataType: 'json',
@@ -59,6 +65,9 @@
                                 }
                             ]
                         });
+                        $('#loadingMessage').hide();
+                        $('#myButton').show();
+
                     }
                 });
 
@@ -83,6 +92,27 @@
                 });
 
 
+            });
+
+            $('#yesButton').click(function (e) {
+                e.preventDefault(); // prevent form from reloading page
+
+
+                $.ajax({
+                    'url': '/save/{{ term }}',
+                    'type': 'GET',
+                    beforeSend: function () {
+                        $('.theContent').hide();
+                        $('.uploadingMessage').show();
+                    },
+                    error: function () {
+                        alert('Error');
+                    },
+                    'success': function (data) {
+                        $('.uploadingMessage').hide();
+                        $('.savedMessage').show();
+                    }
+                });
             });
         </script>
     {% endblock %}
