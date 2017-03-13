@@ -1,3 +1,5 @@
+from io import TextIOWrapper
+
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 
 from .forms import ArtistForm
@@ -75,9 +77,12 @@ def show_saved_result(request, artist):
 
 
 def load_file(request):
-
     if request.method == 'POST':
-        return HttpResponse('wooh!')
+        file = request.FILES.getlist('my_file')[0]
+        file_name = request.POST['file_name']
+        # the_data = TextIOWrapper(file.file, encoding=request.encoding)
+        if handle_uploaded_file(file, file_name):
+            return HttpResponseRedirect('/show/'+file_name)
     else:
         return render(request, 'MainApp/pages/upload_file.html', {})
 
@@ -91,6 +96,18 @@ def lookup_saved_files():
 def path_leaf(path):
     head, tail = ntpath.split(path)
     return tail or ntpath.basename(head)
+
+
+def handle_uploaded_file(file, file_name):
+    try:
+        file_path = os.path.dirname(
+            MainApp.__file__) + '/saved-data/' + file_name
+        with open(file_path, 'wb+') as destination:
+            for chunk in file.chunks():
+                destination.write(chunk)
+        return True
+    except:
+        return False
 
 
 def file_read(file_name):
