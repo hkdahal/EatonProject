@@ -69,6 +69,11 @@ def load_file(request):
                       {'current': 'LoadFile'})
 
 
+def usage_guide(request):
+    return render(request, 'MainApp/pages/usage_guide.html',
+                  {'current': 'UsageGuide'})
+
+
 # function to get user's input
 # process user input
 # Apple's API Connector
