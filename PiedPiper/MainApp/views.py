@@ -69,7 +69,8 @@ def show_saved_result(request, artist):
                   {
                       'form': form,
                       'url': '/saved/'+artist,
-                      'saved_artists': lookup_saved_files()
+                      'saved_artists': lookup_saved_files(),
+                      'saved_data': True
                    })
 
 

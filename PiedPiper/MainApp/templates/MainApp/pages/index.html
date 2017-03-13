@@ -6,7 +6,10 @@
         <form action="/" method="post" class="form-inline">
             {% csrf_token %}
             {{ form }}
-            <input type="submit" value="Search" class="btn btn-primary"/>
+
+            <input type="submit"
+                   value="{% if saved_data %}Refresh Results{% else %}Search{% endif %}"
+                   class="btn btn-primary"/>
         </form>
 
 
