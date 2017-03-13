@@ -1,0 +1,60 @@
+{% extends 'MainApp/base.html' %}
+
+
+{% block content %}
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <form action="/load-file" method="post" id="add_user_form"
+              enctype="multipart/form-data" {% if users_added %}
+              hidden {% endif %}>
+            {% csrf_token %}
+            <h4>Input Groups</h4>
+            <div class="input-group col-xs-4">
+                <label class="input-group-btn">
+                      <span class="btn btn-primary">
+                          Browse&hellip; <input type="file"
+                                                style="display: none;"
+                                                name="my_file"
+                                                accept="application/json">
+                      </span>
+                </label>
+                    <input type="text" class="form-control" readonly>
+                </div>
+            <span class="help-block">
+                  Only .json file!
+              </span>
+            <input type="submit" value="Upload" class="btn btn-success"/>
+        </form>
+    </div>
+
+    <script>
+        $(function () {
+            $(':input[type="submit"]').prop('disabled', true);
+            // attach the `fileselect` event to all file inputs on the page
+            $(document).on('change', ':file', function () {
+                var input = $(this),
+                        numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                input.trigger('fileselect', [numFiles, label]);
+            });
+
+            // watch for custom `fileselect` event
+            $(document).ready(function () {
+                $(':file').on('fileselect', function (event, numFiles, label) {
+
+                    var input = $(this).parents('.input-group').find(':text'),
+                            log = label;
+
+                    if (input.length) {
+                        input.val(log);
+                        $(':input[type="submit"]').prop('disabled', false);
+                    } else {
+                        if (log) alert(log);
+                    }
+
+                });
+            });
+
+        });
+    </script>
+
+{% endblock %}
