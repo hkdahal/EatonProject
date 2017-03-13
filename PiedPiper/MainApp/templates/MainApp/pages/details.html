@@ -1,4 +1,5 @@
 {% extends 'MainApp/base.html' %}
+{% load filters %}
 
 {% block content %}
     <div class="col col-md-4 col-sm-offset-2 main">
@@ -20,7 +21,7 @@
 {% block image_block %}
     <div class="col col-md-4 main">
 
-        <img src="{{ data.artworkUrl100 }}" height="200" width="200"
+        <img src="{{ data.artworkUrl100|image_300 }}"
              class="rounded float-right">
         <br>
         <br>
