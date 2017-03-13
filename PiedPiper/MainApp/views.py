@@ -1,5 +1,3 @@
-from io import TextIOWrapper
-
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 
 from .forms import ArtistForm
@@ -82,7 +80,6 @@ def load_file(request):
     if request.method == 'POST':
         file = request.FILES.getlist('my_file')[0]
         file_name = request.POST['file_name']
-        # the_data = TextIOWrapper(file.file, encoding=request.encoding)
         if handle_uploaded_file(file, file_name):
             return HttpResponseRedirect('/show/'+file_name)
     else:
@@ -112,24 +109,6 @@ def handle_uploaded_file(file, file_name):
     except:
         return False
 
-
-def file_read(file_name):
-    # process the file
-    #
-    pass
-
-
-def save_file(data):
-    # process the data
-    # write the data in the file
-    # save the file
-    pass
-
-
-def process_api_result(data):
-    # process the data
-    # necessary displaying stuff
-    pass
 
 # function to get user's input
 # process user input
