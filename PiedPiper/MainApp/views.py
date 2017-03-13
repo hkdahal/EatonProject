@@ -74,13 +74,4 @@ def usage_guide(request):
                   {'current': 'UsageGuide'})
 
 
-# function to get user's input
-# process user input
-# Apple's API Connector
-# call Apple's API
-# process the API result
-# display API result
-# AJAX call handling?
-# file saving handled
-# file read handled
 
