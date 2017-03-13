@@ -4,24 +4,33 @@ from .forms import ArtistForm
 
 from .search_api import SearchAPI
 
+import glob
 import json
+import ntpath
+import os
+import MainApp
 
 
 def index(request):
+    url, term = None, None
+
     if request.method == "POST":
         form = ArtistForm(request.POST)
         if form.is_valid():
             term = form.cleaned_data['name']
-            return render(request, 'MainApp/pages/index.html',
-                          {'form': form,
-                           'url': '/artist/'+term,
-                           'term': term
-                           }
-                          )
+            url = '/artist/'+term
     else:
         form = ArtistForm()
 
-    return render(request, 'MainApp/pages/index.html', {'form': form})
+    saved_artists = lookup_saved_files()
+
+    return render(request, 'MainApp/pages/index.html',
+                  {
+                      'form': form,
+                      'url': url,
+                      'term': term,
+                      'saved_artists': saved_artists
+                   })
 
 
 def get_data(request, name):
@@ -41,7 +50,19 @@ def save_data(request, term):
     with open('MainApp/saved-data/'+term+'.json', 'w') as f:
         json.dump(data, f)
 
+    lookup_saved_files()
     return HttpResponse('saved ' + term + ' file.')
+
+
+def lookup_saved_files():
+    path = os.path.dirname(MainApp.__file__)
+    file_paths = glob.glob(path+'/saved-data/*.json')
+    return [path_leaf(path).split('.')[0] for path in file_paths]
+
+
+def path_leaf(path):
+    head, tail = ntpath.split(path)
+    return tail or ntpath.basename(head)
 
 
 def file_read(file_name):
