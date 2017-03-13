@@ -27,7 +27,10 @@ should be a file called manage.py in the folder.
 
 * Then start the server by running the command in cmd:
 
-`$ python manage.py runserver 8000`
+```
+cd PiedPiper
+$ python manage.py runserver 8000
+```
 
 You can now access the server at http://127.0.0.1:8000
 
