@@ -74,6 +74,14 @@ def show_saved_result(request, artist):
                    })
 
 
+def load_file(request):
+
+    if request.method == 'POST':
+        return HttpResponse('wooh!')
+    else:
+        return render(request, 'MainApp/pages/upload_file.html', {})
+
+
 def lookup_saved_files():
     path = os.path.dirname(MainApp.__file__)
     file_paths = glob.glob(path+'/saved-data/*.json')
