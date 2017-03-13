@@ -54,6 +54,25 @@ def save_data(request, term):
     return HttpResponse('saved ' + term + ' file.')
 
 
+def load_saved_data(request, artist):
+    file = os.path.dirname(MainApp.__file__) + '/saved-data/' + artist + '.json'
+
+    # Reading data back
+    with open(file, 'r') as f:
+        data = json.load(f)
+    return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+def show_saved_result(request, artist):
+    form = ArtistForm(initial={'name': artist})
+    return render(request, 'MainApp/pages/index.html',
+                  {
+                      'form': form,
+                      'url': '/saved/'+artist,
+                      'saved_artists': lookup_saved_files()
+                   })
+
+
 def lookup_saved_files():
     path = os.path.dirname(MainApp.__file__)
     file_paths = glob.glob(path+'/saved-data/*.json')
