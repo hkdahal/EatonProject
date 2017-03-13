@@ -14,7 +14,7 @@
         {% if saved_artists %}
             <br>Saved artists:
             {% for artist in saved_artists %}
-                <code>{{ artist }}</code>
+                <code><a href="/show/{{ artist }}">{{ artist }}</a></code>
 
             {% endfor %}
         {% endif %}
@@ -34,8 +34,9 @@
                 <tbody></tbody>
                 <tfoot></tfoot>
             </table>
-
-            {% include 'MainApp/pages/save_modal.html' %}
+            {% if term %}
+                {% include 'MainApp/pages/save_modal.html' %}
+            {% endif %}
         {% endif %}
     </div>
 {% endblock %}
@@ -98,8 +99,7 @@
                 })
 
                 $('#datatable').on('click', 'tbody tr', function () {
-                    var url = window.location.href;
-                    url += 'details/' + $(this).children(':first').text();
+                    var url = '/details/' + $(this).children(':first').text();
                     window.location.assign(url);
                 });
 
@@ -124,7 +124,7 @@
                         'success': function (data) {
                             $('.uploadingMessage').hide();
                             $('.savedMessage').show();
-                            $('#savedArtistsDetails').append('<code> {{ term }} </code>')
+                            $('#savedArtistsDetails').append('<code><a href="/show/{{ term }}">{{ term }}</a></code>')
                         }
                     });
                 });
