@@ -31,7 +31,8 @@ def index(request):
                       'form': form,
                       'url': url,
                       'term': term,
-                      'saved_artists': saved_artists
+                      'saved_artists': saved_artists,
+                      'current': 'Homepage'
                    })
 
 
@@ -72,7 +73,8 @@ def show_saved_result(request, artist):
                       'form': form,
                       'url': '/saved/'+artist,
                       'saved_artists': lookup_saved_files(),
-                      'saved_data': True
+                      'saved_data': True,
+                      'current': 'Homepage'
                    })
 
 
@@ -84,7 +86,8 @@ def load_file(request):
         if handle_uploaded_file(file, file_name):
             return HttpResponseRedirect('/show/'+file_name)
     else:
-        return render(request, 'MainApp/pages/upload_file.html', {})
+        return render(request, 'MainApp/pages/upload_file.html',
+                      {'current': 'LoadFile'})
 
 
 def lookup_saved_files():
