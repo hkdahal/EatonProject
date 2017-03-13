@@ -38,7 +38,7 @@ Input artist's name in the homepage's form, and submit the form.
 
 * Data from Apple's API is loaded in the homepage from a POST request to url: `/artist/<ed sheeran>`
    
-    - http://127.0.0.1:8000/artist/ed%20sheeran
+    - http://127.0.0.1:8000/api/artist/ed%20sheeran
     
     - Internally makes a call to: `https://itunes.apple.com/search?term=ed+sheeran&entity=musicTrack`
 
