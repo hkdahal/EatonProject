@@ -56,7 +56,7 @@ def save_data(request, term):
     data = SearchAPI().search_artist(term)
 
     # Writing JSON data
-    with open('MainApp/saved-data/'+term+'.json', 'w') as f:
+    with open('MainApp'+my_api.DATA_DIRECTORY+term+'.json', 'w') as f:
         json.dump(data, f)
 
     return HttpResponse('Saved ' + term + ' file.')
